@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday MS Dhoni - Captain Cool Turns 44</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 25%, #2d1b69 50%, #1e3c72 75%, #2a5298 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .birthday-age {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Image Gallery */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .image-card {
+            position: relative;
+            height: 350px;
+            perspective: 1000px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .image-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover .card-overlay {
+            transform: translateY(0);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+
+        /* Appreciation Messages */
+        .appreciation-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .message-container {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .message-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-emoji {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-style {
+            font-size: 0.9rem;
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-text {
+            color: #ffffff;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .hashtags {
+            color: #4ecdc4;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Generate New Messages Button */
+        .generate-btn {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #ffffff;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .image-card {
+                height: 300px;
+            }
+            
+            .card-back {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .gallery-container,
+            .appreciation-section {
+                padding: 1.5rem 1rem;
+            }
+            
+            .image-card {
+                height: 250px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles"></div>
+
+    <!-- Header -->
+    <header class="header loading">
+        <h1 class="main-title">Happy Birthday</h1>
+        <h2 class="subtitle">MS Dhoni - Captain Cool</h2>
+        <div class="birthday-age">44 Years of Excellence</div>
+    </header>
+
+    <!-- Image Gallery -->
+    <section class="gallery-container loading">
+        <div class="image-grid">
+            <div class="image-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIXihcvvs6VKV44sNe8nxMKrCoZT7x7lEI0Q&s" alt="Cricket Stadium" class="card-image">
+                        <div class="card-overlay">
+                            <div class="card-title">The Captain</div>
+                            <div class="card-description">Leading from the front with unmatched composure</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-title">🏏 Leadership Legacy</div>
+                        <div class="card-description">
+                            From wicket-keeper to captain, MS Dhoni redefined leadership in cricket. His calm demeanor under pressure became legendary, inspiring millions across the globe.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.pinimg.com/736x/87/12/c5/8712c570bd09174282085df1f5a90e94.jpg" alt="Cricket Trophy" class="card-image">
+                        <div class="card-overlay">
+                            <div class="card-title">The Winner</div>
+                            <div class="card-description">World Cup champion and record holder</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-title">🏆 Trophy Cabinet</div>
+                        <div class="card-description">
+                            2007 T20 World Cup, 2011 Cricket World Cup, 2013 Champions Trophy - The only captain to win all three major ICC tournaments. A true champion!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.pinimg.com/736x/a6/5a/bd/a65abd84002fb748d223196ad6493311.jpg" alt="Indian Flag" class="card-image">
+                        <div class="card-overlay">
+                            <div class="card-title">The Legend</div>
+                            <div class="card-description">India's pride and eternal inspiration</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-title">🇮🇳 National Hero</div>
+                        <div class="card-description">
+                            Beyond cricket, MSD became a symbol of hope and determination. His journey from Ranchi to becoming Captain Cool inspires generations of Indians.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appreciation Messages -->
+    <section class="appreciation-section loading">
+        <h2 class="section-title">Birthday Appreciation Messages</h2>
+        <div class="message-container" id="messageContainer">
+            <!-- Messages will be loaded here -->
+        </div>
+        <button class="generate-btn" onclick="generateNewMessages()">Generate New Messages ⚡</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer loading">
+        <p>🏏 Forever Our Captain - MS Dhoni 🏏</p>
+        <p>Happy 44th Birthday to the Finisher!</p>
+    </footer>
+
+    <script>
+        // Appreciation messages data
+        const appreciationMessages = [
+            {
+                emoji: "⚡",
+                style: "Legendary Tone – Direct Address",
+                text: "MSD, you're 44 today, but your legacy is timeless. From Ranchi's quiet lanes to the loudest roars in world cricket — you didn't just play the game, you changed it. You've taught us all how calmness can conquer chaos. Happy Birthday, Captain Cool. 👑💛",
+                hashtags: "#MSDhoni #Legend44 #StillOurCaptain"
+            },
+            {
+                emoji: "🇮🇳",
+                style: "Emotional & Patriotic",
+                text: "You gave India more than trophies, Dhoni. You gave us belief when the match seemed lost. You smiled when pressure mounted. At 44, you're not just a name — you're an emotion. We'll always stand behind you, like we did your No.7. Happy Birthday, Mahi. 🙏🇮🇳",
+                hashtags: "#ForeverOurCaptain #HappyBirthdayDhoni"
+            },
+            {
+                emoji: "💬",
+                style: "Storyteller Style",
+                text: "You started with nothing but a dream, long hair, and a quiet fire. You ended up becoming the calm in every storm, the reason behind so many wins. At 44, you're still teaching us that greatness doesn't shout — it just *is*. Happy Birthday, MS — our timeless icon. 🐐🏆",
+                hashtags: "#Dhoni44 #CaptainForever"
+            },
+            {
+                emoji: "🧠",
+                style: "Witty & Classy – Direct",
+                text: "You're 44, Mahi... Still faster than the stumps falling under your gloves. Cooler than ACs in Chennai. More humble than anyone with your greatness could ever be. Happy Birthday to the man who made cricket poetic and pressure silent.",
+                hashtags: "#MSDhoni #Thala44"
+            },
+            {
+                emoji: "💥",
+                style: "Short & Impactful – Personal Feel",
+                text: "You wore No.7, but you became No.1 in our hearts. At 44, your silence still speaks louder than most legacies. Happy Birthday, MS Dhoni — the finisher of games, and the starter of dreams.",
+                hashtags: "#LegendTurns44 #MSD"
+            },
+            {
+                emoji: "🧘",
+                style: "Wise & Respectful – Direct to Dhoni",
+                text: "You've taught us that true leaders don't need noise. You never let success change you — and that's your real victory. At 44, your calm, your grace, your game still guide millions. Happy Birthday, Captain.",
+                hashtags: "#MSDhoni #CaptainOfHearts"
+            },
+            {
+                emoji: "🏏",
+                style: "Nostalgic Fan's Voice",
+                text: "You gave us moments we'll never forget — The Wankhede six. The stump-collecting ritual. The silent exits. At 44, you remain a part of every cricket fan's soul. Happy Birthday, MS Dhoni — the finisher of our best memories.",
+                hashtags: "#ThalaForAReason #MSD44"
+            }
+        ];
+
+        // Additional messages pool for generation
+        const additionalMessages = [
+            {
+                emoji: "🎯",
+                style: "Motivational & Inspiring",
+                text: "At 44, you're proof that legends never fade. Your helicopter shots, your lightning-fast stumpings, your captain's instinct — they live on in every young cricketer's dream. Happy Birthday, MS Dhoni!",
+                hashtags: "#HelicopterShot #CaptainCool #MSD44"
+            },
+            {
+                emoji: "💛",
+                style: "CSK Fan's Love",
+                text: "Yellow jersey, yellow heart, yellow celebrations — you made CSK a family and Chennai your home. At 44, you're still our Thala, still our champion. Happy Birthday, MS Dhoni! 💛🦁",
+                hashtags: "#WhistlePodu #Thala #CSKForever"
+            },
+            {
+                emoji: "🏆",
+                style: "Achievement Celebration",
+                text: "183 ODI wins as captain. 3 ICC trophies. Countless hearts won. At 44, your numbers tell stories of greatness. Happy Birthday to the most successful captain in cricket history!",
+                hashtags: "#CaptainStats #MostSuccessful #MSD"
+            },
+            {
+                emoji: "🌟",
+                style: "Philosophical & Deep",
+                text: "You taught us that success isn't about noise — it's about results. That pressure is a privilege. That legends are made in moments of silence. Happy Birthday, MS Dhoni. Your wisdom echoes beyond cricket.",
+                hashtags: "#WisdomOfDhoni #PressureIsPrivilege #Legend"
+            }
+        ];
+
+        // Create floating particles
+        function createParticles() {
+            const particles = document.querySelector('.particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Display messages
+        function displayMessages(messages) {
+            const container = document.getElementById('messageContainer');
+            container.innerHTML = '';
+            
+            messages.forEach(message => {
+                const messageCard = document.createElement('div');
+                messageCard.className = 'message-card';
+                messageCard.innerHTML = `
+                    <div class="message-emoji">${message.emoji}</div>
+                    <div class="message-style">${message.style}</div>
+                    <div class="message-text">${message.text}</div>
+                    <div class="hashtags">${message.hashtags}</div>
+                `;
+                container.appendChild(messageCard);
+            });
+        }
+
+        // Generate new messages
+        function generateNewMessages() {
+            const allMessages = [...appreciationMessages, ...additionalMessages];
+            const shuffled = allMessages.sort(() => 0.5 - Math.random());
+            const selectedMessages = shuffled.slice(0, 5);
+            displayMessages(selectedMessages);
+        }
+
+        // Initialize the page
+        function init() {
+            createParticles();
+            displayMessages(appreciationMessages.slice(0, 5));
+            
+            // Add loading animation
+            setTimeout(() => {
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.style.opacity = '1';
+                });
+            }, 100);
+        }
+
+        // Run initialization when page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
